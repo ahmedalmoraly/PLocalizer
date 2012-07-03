@@ -1,0 +1,296 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6A29F81615A368660008AEA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A29F81515A368660008AEA7 /* Cocoa.framework */; };
+		6A29F82015A368660008AEA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A29F81E15A368660008AEA7 /* InfoPlist.strings */; };
+		6A29F82215A368660008AEA7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29F82115A368660008AEA7 /* main.m */; };
+		6A29F82615A368660008AEA7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6A29F82415A368660008AEA7 /* Credits.rtf */; };
+		6A29F82915A368660008AEA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29F82815A368660008AEA7 /* AppDelegate.m */; };
+		6A29F82C15A368660008AEA7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A29F82A15A368660008AEA7 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6A29F81115A368660008AEA7 /* PLocalizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PLocalizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A29F81515A368660008AEA7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		6A29F81815A368660008AEA7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		6A29F81915A368660008AEA7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6A29F81A15A368660008AEA7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6A29F81D15A368660008AEA7 /* PLocalizer-Info.plist */ = {isa = PBXFileReference; path = "PLocalizer-Info.plist"; sourceTree = "<group>"; };
+		6A29F81F15A368660008AEA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6A29F82115A368660008AEA7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6A29F82315A368660008AEA7 /* PLocalizer-Prefix.pch */ = {isa = PBXFileReference; path = "PLocalizer-Prefix.pch"; sourceTree = "<group>"; };
+		6A29F82515A368660008AEA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		6A29F82715A368660008AEA7 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		6A29F82815A368660008AEA7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6A29F82B15A368660008AEA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6A29F80E15A368660008AEA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A29F81615A368660008AEA7 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6A29F80615A368650008AEA7 = {
+			isa = PBXGroup;
+			children = (
+				6A29F81B15A368660008AEA7 /* PLocalizer */,
+				6A29F81415A368660008AEA7 /* Frameworks */,
+				6A29F81215A368660008AEA7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6A29F81215A368660008AEA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6A29F81115A368660008AEA7 /* PLocalizer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6A29F81415A368660008AEA7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A29F81515A368660008AEA7 /* Cocoa.framework */,
+				6A29F81715A368660008AEA7 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6A29F81715A368660008AEA7 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A29F81815A368660008AEA7 /* AppKit.framework */,
+				6A29F81915A368660008AEA7 /* CoreData.framework */,
+				6A29F81A15A368660008AEA7 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		6A29F81B15A368660008AEA7 /* PLocalizer */ = {
+			isa = PBXGroup;
+			children = (
+				6A29F82715A368660008AEA7 /* AppDelegate.h */,
+				6A29F82815A368660008AEA7 /* AppDelegate.m */,
+				6A29F82A15A368660008AEA7 /* MainMenu.xib */,
+				6A29F81C15A368660008AEA7 /* Supporting Files */,
+			);
+			path = PLocalizer;
+			sourceTree = "<group>";
+		};
+		6A29F81C15A368660008AEA7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6A29F81D15A368660008AEA7 /* PLocalizer-Info.plist */,
+				6A29F81E15A368660008AEA7 /* InfoPlist.strings */,
+				6A29F82115A368660008AEA7 /* main.m */,
+				6A29F82315A368660008AEA7 /* PLocalizer-Prefix.pch */,
+				6A29F82415A368660008AEA7 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6A29F81015A368660008AEA7 /* PLocalizer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A29F82F15A368660008AEA7 /* Build configuration list for PBXNativeTarget "PLocalizer" */;
+			buildPhases = (
+				6A29F80D15A368660008AEA7 /* Sources */,
+				6A29F80E15A368660008AEA7 /* Frameworks */,
+				6A29F80F15A368660008AEA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PLocalizer;
+			productName = PLocalizer;
+			productReference = 6A29F81115A368660008AEA7 /* PLocalizer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6A29F80815A368650008AEA7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = Artgin;
+			};
+			buildConfigurationList = 6A29F80B15A368660008AEA7 /* Build configuration list for PBXProject "PLocalizer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6A29F80615A368650008AEA7;
+			productRefGroup = 6A29F81215A368660008AEA7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6A29F81015A368660008AEA7 /* PLocalizer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6A29F80F15A368660008AEA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A29F82015A368660008AEA7 /* InfoPlist.strings in Resources */,
+				6A29F82615A368660008AEA7 /* Credits.rtf in Resources */,
+				6A29F82C15A368660008AEA7 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6A29F80D15A368660008AEA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A29F82215A368660008AEA7 /* main.m in Sources */,
+				6A29F82915A368660008AEA7 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6A29F81E15A368660008AEA7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A29F81F15A368660008AEA7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6A29F82415A368660008AEA7 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A29F82515A368660008AEA7 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		6A29F82A15A368660008AEA7 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A29F82B15A368660008AEA7 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6A29F82D15A368660008AEA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		6A29F82E15A368660008AEA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		6A29F83015A368660008AEA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PLocalizer/PLocalizer-Prefix.pch";
+				INFOPLIST_FILE = "PLocalizer/PLocalizer-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		6A29F83115A368660008AEA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PLocalizer/PLocalizer-Prefix.pch";
+				INFOPLIST_FILE = "PLocalizer/PLocalizer-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6A29F80B15A368660008AEA7 /* Build configuration list for PBXProject "PLocalizer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A29F82D15A368660008AEA7 /* Debug */,
+				6A29F82E15A368660008AEA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A29F82F15A368660008AEA7 /* Build configuration list for PBXNativeTarget "PLocalizer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A29F83015A368660008AEA7 /* Debug */,
+				6A29F83115A368660008AEA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6A29F80815A368650008AEA7 /* Project object */;
+}
