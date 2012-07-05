@@ -121,7 +121,7 @@
                     
                     NSRange range = [string rangeOfString:str];
                     
-                    [self.textView.textStorage addAttribute:NSBackgroundColorAttributeName value:[NSColor lightGrayColor] range:range];
+                    [self.textView.textStorage addAttribute:NSForegroundColorAttributeName value:[NSColor blueColor] range:range];
                 }];
             }
         }];
