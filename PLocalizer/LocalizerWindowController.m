@@ -113,6 +113,18 @@
         
         NSDictionary *data = [[Localizer defaultLocalizer] localizeStringsInFilesAtPath:file.fileURL];
         NSLog(@"data: %@", data);
+        
+        [data enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *strings, BOOL *stop) {
+            if (strings.count) {
+                [strings enumerateObjectsUsingBlock:^(NSDictionary *stringValue, NSUInteger idx, BOOL *stop) {
+                    NSString *str = [stringValue objectForKey:@"string"];
+                    
+                    NSRange range = [string rangeOfString:str];
+                    
+                    [self.textView.textStorage addAttribute:NSBackgroundColorAttributeName value:[NSColor lightGrayColor] range:range];
+                }];
+            }
+        }];
     }
 }
 
