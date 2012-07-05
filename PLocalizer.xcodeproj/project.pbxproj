@@ -13,6 +13,12 @@
 		6A29F82615A368660008AEA7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6A29F82415A368660008AEA7 /* Credits.rtf */; };
 		6A29F82915A368660008AEA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29F82815A368660008AEA7 /* AppDelegate.m */; };
 		6A29F82C15A368660008AEA7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A29F82A15A368660008AEA7 /* MainMenu.xib */; };
+		6A29F83515A368BC0008AEA7 /* Localizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29F83415A368BC0008AEA7 /* Localizer.m */; };
+		6A29F83815A392180008AEA7 /* FileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29F83715A392180008AEA7 /* FileReader.m */; };
+		6A41C93915A4463C00B39B42 /* TableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A41C93815A4463C00B39B42 /* TableCell.m */; };
+		6A41C94515A50D9A00B39B42 /* LocalizerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A41C94315A50D9900B39B42 /* LocalizerWindowController.m */; };
+		6A41C94615A50D9A00B39B42 /* LocalizerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A41C94415A50D9A00B39B42 /* LocalizerWindowController.xib */; };
+		6A41C94D15A519EF00B39B42 /* FilePathEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A41C94C15A519EF00B39B42 /* FilePathEntity.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +35,17 @@
 		6A29F82715A368660008AEA7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6A29F82815A368660008AEA7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6A29F82B15A368660008AEA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6A29F83315A368BC0008AEA7 /* Localizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Localizer.h; path = Localizer/Localizer.h; sourceTree = "<group>"; };
+		6A29F83415A368BC0008AEA7 /* Localizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Localizer.m; path = Localizer/Localizer.m; sourceTree = "<group>"; };
+		6A29F83615A392170008AEA7 /* FileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileReader.h; sourceTree = "<group>"; };
+		6A29F83715A392180008AEA7 /* FileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileReader.m; sourceTree = "<group>"; };
+		6A41C93715A4463B00B39B42 /* TableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCell.h; sourceTree = "<group>"; };
+		6A41C93815A4463C00B39B42 /* TableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCell.m; sourceTree = "<group>"; };
+		6A41C94215A50D9900B39B42 /* LocalizerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizerWindowController.h; sourceTree = "<group>"; };
+		6A41C94315A50D9900B39B42 /* LocalizerWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizerWindowController.m; sourceTree = "<group>"; };
+		6A41C94415A50D9A00B39B42 /* LocalizerWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalizerWindowController.xib; sourceTree = "<group>"; };
+		6A41C94B15A519EF00B39B42 /* FilePathEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePathEntity.h; sourceTree = "<group>"; };
+		6A41C94C15A519EF00B39B42 /* FilePathEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePathEntity.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +99,18 @@
 		6A29F81B15A368660008AEA7 /* PLocalizer */ = {
 			isa = PBXGroup;
 			children = (
+				6A29F83215A368A60008AEA7 /* Localizer */,
 				6A29F82715A368660008AEA7 /* AppDelegate.h */,
 				6A29F82815A368660008AEA7 /* AppDelegate.m */,
+				6A41C93715A4463B00B39B42 /* TableCell.h */,
+				6A41C93815A4463C00B39B42 /* TableCell.m */,
 				6A29F82A15A368660008AEA7 /* MainMenu.xib */,
 				6A29F81C15A368660008AEA7 /* Supporting Files */,
+				6A41C94215A50D9900B39B42 /* LocalizerWindowController.h */,
+				6A41C94315A50D9900B39B42 /* LocalizerWindowController.m */,
+				6A41C94415A50D9A00B39B42 /* LocalizerWindowController.xib */,
+				6A41C94B15A519EF00B39B42 /* FilePathEntity.h */,
+				6A41C94C15A519EF00B39B42 /* FilePathEntity.m */,
 			);
 			path = PLocalizer;
 			sourceTree = "<group>";
@@ -100,6 +125,17 @@
 				6A29F82415A368660008AEA7 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6A29F83215A368A60008AEA7 /* Localizer */ = {
+			isa = PBXGroup;
+			children = (
+				6A29F83615A392170008AEA7 /* FileReader.h */,
+				6A29F83715A392180008AEA7 /* FileReader.m */,
+				6A29F83315A368BC0008AEA7 /* Localizer.h */,
+				6A29F83415A368BC0008AEA7 /* Localizer.m */,
+			);
+			name = Localizer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +192,7 @@
 				6A29F82015A368660008AEA7 /* InfoPlist.strings in Resources */,
 				6A29F82615A368660008AEA7 /* Credits.rtf in Resources */,
 				6A29F82C15A368660008AEA7 /* MainMenu.xib in Resources */,
+				6A41C94615A50D9A00B39B42 /* LocalizerWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +205,11 @@
 			files = (
 				6A29F82215A368660008AEA7 /* main.m in Sources */,
 				6A29F82915A368660008AEA7 /* AppDelegate.m in Sources */,
+				6A29F83515A368BC0008AEA7 /* Localizer.m in Sources */,
+				6A29F83815A392180008AEA7 /* FileReader.m in Sources */,
+				6A41C93915A4463C00B39B42 /* TableCell.m in Sources */,
+				6A41C94515A50D9A00B39B42 /* LocalizerWindowController.m in Sources */,
+				6A41C94D15A519EF00B39B42 /* FilePathEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +331,7 @@
 				6A29F83115A368660008AEA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

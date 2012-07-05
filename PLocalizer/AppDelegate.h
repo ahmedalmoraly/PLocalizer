@@ -8,8 +8,30 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+#import "LocalizerWindowController.h"
+
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+
+
+@property (weak) IBOutlet NSTableView *tableView;
+
+@property (weak) IBOutlet NSTextField *labelView;
+
+@property (strong) NSArray *dataSource;
+
+@property (weak) IBOutlet NSProgressIndicator *spinner;
+
+@property (weak) IBOutlet NSTextField *pathTextField;
+
+@property (strong) LocalizerWindowController *localizerController;
+
+@property (strong) NSURL *openURL;
+
+- (IBAction)browseFiles:(id)sender;
+
+- (IBAction)searchForCodeFiles:(id)sender;
+
 
 @end
