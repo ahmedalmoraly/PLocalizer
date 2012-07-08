@@ -135,18 +135,32 @@ static dispatch_queue_t localize_strings_queue()
         dispatch_async(localize_strings_queue(), ^{
 
             [[Localizer defaultLocalizer] enumerateStringsInFileAtPath:file.fileURL withBlock:^(NSString *line, NSArray *strings) {
+        
+                NSMutableAttributedString *attibutedString = [[NSMutableAttributedString alloc] initWithString:line];
+                
+                __weak NSMutableAttributedString *weakString = attibutedString;
+                
+                [strings enumerateObjectsUsingBlock:^(NSDictionary *stringDic, NSUInteger idx, BOOL *stop) {
+                    NSRange range = NSRangeFromString([stringDic objectForKey:@"range"]);
+                    
+                    [weakString setAttributes:[NSDictionary dictionaryWithObject:[NSColor blueColor] forKey:NSForegroundColorAttributeName] range:range];
+                }];
+                
+                    // get the range of the line
+                NSRange lineRange = NSMakeRange(self.textView.string.length, attibutedString.length);
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [weakSelf.textView.textStorage beginEditing];
+                    [weakSelf.textView.textStorage appendAttributedString:weakString];
+                    [weakSelf.textView.textStorage endEditing];
+                });
+                
+                
+                [strings enumerateObjectsUsingBlock:^(NSMutableDictionary *stringDic, NSUInteger idx, BOOL *stop) {
+                    [stringDic setObject:NSStringFromRange(lineRange) forKey:@"lineRange"];
+                }];
+                
                 [weakSelf.stringsArray addObjectsFromArray:strings];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [weakSelf.textView setString:[[weakSelf.textView string] stringByAppendingString:line]];
-                });
-            }];
-            
-            [weakSelf.stringsArray enumerateObjectsUsingBlock:^(NSDictionary *string, NSUInteger idx, BOOL *stop) {
-                NSString *val = [string objectForKey:@"string"];
-                NSRange range = [weakSelf.textView.string rangeOfString:val];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [weakSelf.textView.textStorage addAttribute:NSForegroundColorAttributeName value:[NSColor blueColor] range:range];
-                });
             }];
             
             [weakSelf.stringsTable reloadData];
@@ -154,25 +168,6 @@ static dispatch_queue_t localize_strings_queue()
             weakSelf = nil;
         });
         
-//        
-//        
-//        NSString *string = [NSString stringWithContentsOfURL:file.fileURL encoding:NSUTF8StringEncoding error:nil];
-//        [self.textView setString:string];
-//        
-//        NSDictionary *data = [[Localizer defaultLocalizer] localizeStringsInFilesAtPath:file.fileURL];
-//        NSLog(@"data: %@", data);
-//        
-//        [data enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *strings, BOOL *stop) {
-//            if (strings.count) {
-//                [strings enumerateObjectsUsingBlock:^(NSDictionary *stringValue, NSUInteger idx, BOOL *stop) {
-//                    NSString *str = [stringValue objectForKey:@"string"];
-//                    
-//                    NSRange range = [string rangeOfString:str];
-//                    
-//                    [self.textView.textStorage addAttribute:NSForegroundColorAttributeName value:[NSColor blueColor] range:range];
-//                }];
-//            }
-//        }];
     }
 }
 
@@ -188,8 +183,19 @@ static dispatch_queue_t localize_strings_queue()
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     NSTableCellView *result = [tableView makeViewWithIdentifier:@"StringCell" owner:self];
+
+    NSDictionary *stringDic = [self.stringsArray objectAtIndex:row];
+
+    result.textField.stringValue = [stringDic objectForKey:@"string"];
     
-    result.textField.stringValue = [[self.stringsArray objectAtIndex:row] objectForKey:@"string"];
+    NSButton *check = [result viewWithTag:1];
+    
+    if ([stringDic objectForKey:@"localizedString"]) {
+        check.state = 1;
+    }
+    else {
+        check.state = 0;
+    }
     
     return result;
 }
@@ -201,8 +207,17 @@ static dispatch_queue_t localize_strings_queue()
     }
     
     NSDictionary *stringDic = [self.stringsArray objectAtIndex:self.stringsTable.selectedRow];
-    NSString *string = [stringDic objectForKey:@"string"];
-    NSRange range = [self.textView.string rangeOfString:string];
+    
+    NSString *string = [stringDic objectForKey:@"localizedString"];
+    
+    if (!string) {
+        string = [stringDic objectForKey:@"string"];
+    }
+    
+    NSRange lineRange =  NSRangeFromString([stringDic objectForKey:@"lineRange"]);
+    
+    NSRange range = [self.textView.string rangeOfString:string options:NSCaseInsensitiveSearch range:lineRange];
+    
     [self.textView scrollRangeToVisible:range];
     [self.textView.textStorage addAttribute:NSBackgroundColorAttributeName value:[NSColor yellowColor] range:range];
     [self.textView setNeedsDisplayInRect:self.textView.visibleRect];
@@ -215,11 +230,54 @@ static dispatch_queue_t localize_strings_queue()
 {
     NSInteger row = [self.stringsTable rowForView:sender];
     
-    NSDictionary *stringDic = [self.stringsArray objectAtIndex:row];
+    NSMutableDictionary *stringDic = [self.stringsArray objectAtIndex:row];
+    
+    NSRange lineRange =  NSRangeFromString([stringDic objectForKey:@"lineRange"]);
     NSString *string = [stringDic objectForKey:@"string"];
     
-    NSRange range = [self.textView.string rangeOfString:string];
+    NSRange range = [self.textView.string rangeOfString:string options:NSCaseInsensitiveSearch range:lineRange];
     
-    [self.textView replaceCharactersInRange:range withString:[NSString stringWithFormat:@"NSLocalizedString(%@, nil)", string]];
+    NSInteger diffInLength = 0;
+    NSString *localizedString = [stringDic objectForKey:@"localizedString"];
+    if (localizedString) 
+    {
+            // string needs de-localization
+        NSRange localizedRange = [self.textView.string rangeOfString:localizedString options:NSCaseInsensitiveSearch range:lineRange];
+        
+        [self.textView replaceCharactersInRange:localizedRange withString:string];
+        
+        [stringDic removeObjectForKey:@"localizedString"];
+        
+        diffInLength = string.length - localizedString.length;
+    } 
+    else
+    {
+            // string needs localization
+        localizedString = [NSString stringWithFormat:@"NSLocalizedString(%@, nil)", string];
+        
+        [self.textView replaceCharactersInRange:range withString:localizedString];
+        
+        [stringDic setObject:localizedString forKey:@"localizedString"];
+        
+        diffInLength = localizedString.length - string.length;
+        
+        
+    }
+    
+    lineRange.length += diffInLength;
+    [stringDic setObject:NSStringFromRange(lineRange) forKey:@"lineRange"];
+    
+        // update range of all strings
+    
+    
+    for (int idx = row+1; idx < self.stringsArray.count; idx++)
+    {
+        NSMutableDictionary *stringDic = [self.stringsArray objectAtIndex:idx];
+        NSRange lineRange =  NSRangeFromString([stringDic objectForKey:@"lineRange"]);
+        lineRange.location += diffInLength;
+        [stringDic setObject:NSStringFromRange(lineRange) forKey:@"lineRange"];
+    }
+    
+    [self.textView setNeedsDisplayInRect:self.textView.visibleRect];
 }
 @end
