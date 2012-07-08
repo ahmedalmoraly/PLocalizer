@@ -9,14 +9,17 @@
 #import <Cocoa/Cocoa.h>
 #import "FilePathEntity.h"
 
-@interface LocalizerWindowController : NSWindowController <NSOutlineViewDataSource, NSOutlineViewDelegate>
+@interface LocalizerWindowController : NSWindowController <NSOutlineViewDataSource, NSOutlineViewDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (weak) IBOutlet NSOutlineView *outline;
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
+@property (weak) IBOutlet NSTableView *stringsTable;
 
 @property (strong, nonatomic) NSURL *pathURL;
 
 @property (strong, nonatomic) FilePathEntity *fileEntity;
 @property (strong, nonatomic) DirectoryEntity *directory;
+
+- (IBAction)changeStringState:(id)sender;
 
 @end

@@ -14,6 +14,8 @@
 
 -(NSArray *)searchForStringsInDirectory:(NSString *)path;
 
+-(void)enumerateStringsInFileAtPath:(NSURL *)filePath withBlock:(void (^)(NSString *line, NSArray *strings))block;
+
 -(NSDictionary *)localizeStringsInFilesAtPath:(NSURL *)filePath;
 
 @end

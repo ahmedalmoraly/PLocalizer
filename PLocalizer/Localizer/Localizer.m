@@ -13,6 +13,8 @@
 
 
 -(BOOL)shouldLocalizeStatement:(NSString *)statement;
+-(BOOL)shouldLocalizeString:(NSString *)string;
+
 -(NSArray *)getAllStringsInStatement:(NSString *)statement;
 @end
 
@@ -82,6 +84,29 @@
     return dic;
 }
 
+-(void)enumerateStringsInFileAtPath:(NSURL *)filePath withBlock:(void (^)(NSString *, NSArray *))block
+{
+    FileReader *fileReader = [[FileReader alloc] initReaderWithFileURL:filePath];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    [fileReader enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        
+        if ([self shouldLocalizeStatement:line])
+        {
+            NSArray *strings = [self getAllStringsInStatement:line];
+            //if (strings.count) {
+            if (block) {
+                block(line, strings);
+            }
+            [dic setObject:strings forKey:line];
+            //}
+        }
+    }];
+
+    
+}
+
 
 -(NSArray *)getAllStringsInStatement:(NSString *)statement
 {
@@ -99,7 +124,6 @@
         NSString *string;
         [scanner scanUpToString:@"\"" intoString:&string];
         if (string) {
-            string = [NSString stringWithFormat:@"@\"%@", string];
             NSString *temp = [string copy];
             
             // check for \" in the string
@@ -110,10 +134,14 @@
                 string = [string stringByAppendingString:temp];
             }
             // here we have the final string with the " suffix
-            string = [string stringByAppendingString:@"\""];
-            NSRange stringRange = [statement rangeOfString:string];
-            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:string, @"string", NSStringFromRange(stringRange), @"range", nil];
-            [strings addObject:dic]; // add string to the array
+            
+            if ([self shouldLocalizeString:string]) 
+            {       
+                string = [NSString stringWithFormat:@"@\"%@\"", string];
+                NSRange stringRange = [statement rangeOfString:string];
+                NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:string, @"string", NSStringFromRange(stringRange), @"range", nil];
+                [strings addObject:dic]; // add string to the array
+            }
         }
     }
     //NSLog(@"strings: %@ in statement: %@" ,strings, statement);
@@ -159,6 +187,18 @@
     
     // check for nib names
     if ([trimmedStatement rangeOfString:@"NibName"].location != NSNotFound) {
+        //NSLog(@"Nib Name");
+        return NO;
+    }
+    
+    // check for nib names
+    if ([trimmedStatement rangeOfString:@"storyboardWithName"].location != NSNotFound) {
+        //NSLog(@"Nib Name");
+        return NO;
+    }
+    
+    // check for nib names
+    if ([trimmedStatement rangeOfString:@"instantiateViewControllerWithIdentifier"].location != NSNotFound) {
         //NSLog(@"Nib Name");
         return NO;
     }
@@ -211,18 +251,57 @@
         return NO;
     }
     
-    if (![trimmedStatement stringByReplacingOccurrencesOfString:@"%@" withString:@""].length || ![trimmedStatement stringByReplacingOccurrencesOfString:@"%i" withString:@""].length) {
+    // check for keys 
+    if ([trimmedStatement rangeOfString:@"objectForKey"].location != NSNotFound) {
+        //NSLog(@"Predicate");imageNamed
+        return NO;
+    }
+    
+    // check for images 
+    if ([trimmedStatement rangeOfString:@"imageNamed"].location != NSNotFound) {
+        //NSLog(@"Predicate");pathForResource
+        return NO;
+    }
+    
+    // check for resources names 
+    if ([trimmedStatement rangeOfString:@"pathForResource"].location != NSNotFound) {
+        //NSLog(@"Predicate");
+        return NO;
+    }
+    
+    // check for identifiers 
+    if ([trimmedStatement rangeOfString:@"dequeueReusableCellWithIdentifier"].location != NSNotFound) {
+        //NSLog(@"Predicate");setDateFormat
+        return NO;
+    }
+    
+    // check for DateFormats 
+    if ([trimmedStatement rangeOfString:@"setDateFormat"].location != NSNotFound) {
+        //NSLog(@"Predicate");
+        return NO;
+    }
+    
+    return YES;
+
+}
+
+-(BOOL)shouldLocalizeString:(NSString *)string
+{
+    NSString *trimmedString = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    
+    if (![trimmedString stringByReplacingOccurrencesOfString:@"%@" withString:@""].length || ![trimmedString stringByReplacingOccurrencesOfString:@"%i" withString:@""].length || ![trimmedString stringByReplacingOccurrencesOfString:@"%d" withString:@""].length) {
         //NSLog(@"format");
         return NO;
     }
     
-    if ([trimmedStatement isEqualToString:@","] || [trimmedStatement isEqualToString:@";"] || [trimmedStatement isEqualToString:@"."] || [trimmedStatement isEqualToString:@"}"] || [trimmedStatement isEqualToString:@"{"] || [trimmedStatement isEqualToString:@")"] || [trimmedStatement isEqualToString:@"("] || [trimmedStatement isEqualToString:@"-"] || [trimmedStatement isEqualToString:@"_"] || [trimmedStatement isEqualToString:@"/"] || [trimmedStatement isEqualToString:@"!"] || [trimmedStatement isEqualToString:@"%"]) 
+    if ([trimmedString isEqualToString:@","] || [trimmedString isEqualToString:@";"] || [trimmedString isEqualToString:@"."] || [trimmedString isEqualToString:@"}"] || [trimmedString isEqualToString:@"{"] || [trimmedString isEqualToString:@")"] || [trimmedString isEqualToString:@"["] || [trimmedString isEqualToString:@"]"] || [trimmedString isEqualToString:@"("] || [trimmedString isEqualToString:@"-"] || [trimmedString isEqualToString:@"_"] || [trimmedString isEqualToString:@"/"] || [trimmedString isEqualToString:@"!"] || [trimmedString isEqualToString:@"%"]) 
     {
         //NSLog(@"special characters");
         return NO;
     }
     
-    if ([trimmedStatement.pathExtension isEqualToString:@"png"] || [trimmedStatement.pathExtension isEqualToString:@"zip"]) {
+    if ([trimmedString.pathExtension isEqualToString:@"png"] || [trimmedString.pathExtension isEqualToString:@"zip"]) {
         //NSLog(@"path extentions");
         return NO;
     }
