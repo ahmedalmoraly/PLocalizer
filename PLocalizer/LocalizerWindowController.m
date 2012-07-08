@@ -233,9 +233,8 @@ static dispatch_queue_t localize_strings_queue()
     NSMutableDictionary *stringDic = [self.stringsArray objectAtIndex:row];
     
     NSRange lineRange =  NSRangeFromString([stringDic objectForKey:@"lineRange"]);
-    NSString *string = [stringDic objectForKey:@"string"];
     
-    NSRange range = [self.textView.string rangeOfString:string options:NSCaseInsensitiveSearch range:lineRange];
+    NSString *string = [stringDic objectForKey:@"string"];
     
     NSInteger diffInLength = 0;
     NSString *localizedString = [stringDic objectForKey:@"localizedString"];
@@ -254,6 +253,8 @@ static dispatch_queue_t localize_strings_queue()
     {
             // string needs localization
         localizedString = [NSString stringWithFormat:@"NSLocalizedString(%@, nil)", string];
+        
+        NSRange range = [self.textView.string rangeOfString:string options:NSCaseInsensitiveSearch range:lineRange];
         
         [self.textView replaceCharactersInRange:range withString:localizedString];
         
