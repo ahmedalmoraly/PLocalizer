@@ -269,8 +269,6 @@ static dispatch_queue_t localize_strings_queue()
     [stringDic setObject:NSStringFromRange(lineRange) forKey:@"lineRange"];
     
         // update range of all strings
-    
-    
     for (int idx = row+1; idx < self.stringsArray.count; idx++)
     {
         NSMutableDictionary *stringDic = [self.stringsArray objectAtIndex:idx];
