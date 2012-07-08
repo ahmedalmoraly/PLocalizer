@@ -52,9 +52,9 @@
             if (![filePath.pathExtension isEqualToString:@"m"]) {
                 continue;
             }
-            NSDictionary *localizedStrings = [self localizeStringsInFilesAtPath:wholePath];
+                // NSDictionary *localizedStrings = [self localizeStringsInFilesAtPath:wholePath];
             //if (localizedStrings.count) {
-                [stringFiles addObject:[NSDictionary dictionaryWithObject:localizedStrings forKey:filePath]];
+            //    [stringFiles addObject:[NSDictionary dictionaryWithObject:localizedStrings forKey:filePath]];
             //}
         }
     }
@@ -101,6 +101,13 @@
             }
             [dic setObject:strings forKey:line];
             //}
+        }
+        else
+        {
+            if (block) {
+            block(line, nil);
+        }
+            
         }
     }];
 

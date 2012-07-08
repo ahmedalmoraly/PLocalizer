@@ -13,6 +13,7 @@
 - (id) initReaderWithFilePath:(NSString *)aPath;
 - (id) initReaderWithFileURL:(NSURL *)fileURL;
 - (id) initWriterWithFilePath:(NSString *)aPath;
+- (id) initWriterWithFileURL:(NSURL *)fileURL;
 
 - (NSString *) readLine;
 - (NSString *) readTrimmedLine;

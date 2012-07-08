@@ -120,6 +120,22 @@
     return self;
 }
 
+-(id)initWriterWithFileURL:(NSURL *)fileURL {
+    if (self = [super init]) {
+        self.fileHandle = [NSFileHandle fileHandleForWritingToURL:fileURL error:nil];
+        if (self.fileHandle == nil) {
+            return nil;
+        }
+        self.lineDelimiter = [NSString stringWithString:@"\n"];
+        
+        self.filePath = fileURL.absoluteString;
+        self.currentOffset = 0ULL;
+        self.chunkSize = 10;
+        
+    }
+    return self;
+}
+
 -(void)writeData:(NSString *)dataToWrite {
     
     [self.fileHandle writeData:[dataToWrite dataUsingEncoding:NSUTF8StringEncoding]];

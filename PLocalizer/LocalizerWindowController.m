@@ -7,7 +7,7 @@
 //
 
 #import "LocalizerWindowController.h"
-
+#import "FileReader.h"
 #import "Localizer.h"
 
 static dispatch_queue_t _localize_strings_queue;
@@ -279,4 +279,35 @@ static dispatch_queue_t localize_strings_queue()
     
     [self.textView setNeedsDisplayInRect:self.textView.visibleRect];
 }
+
+- (IBAction)saveFile:(id)sender 
+{
+    FilePathEntity *file = [self.outline itemAtRow:self.outline.selectedRow];
+    
+    NSError *error;
+    NSLog(@"%@", self.textView.textStorage.string);
+    [self.textView.textStorage.string writeToURL:file.fileURL atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    NSLog(@"%@", error);
+}
+
+- (IBAction)localizeAll:(id)sender 
+{
+    for (int idx = 0; idx < self.stringsTable.numberOfRows; idx++) {
+        NSButton *check = [[self tableView:self.stringsTable viewForTableColumn:self.stringsTable.tableColumns.lastObject row:idx] viewWithTag:1];
+        
+        [self changeStringState:check];
+    }
+}
+
+- (IBAction)delocalizeAll:(id)sender 
+{
+    for (int idx = 0; idx < self.stringsTable.numberOfRows; idx++) {
+        NSButton *check = [[self tableView:self.stringsTable viewForTableColumn:self.stringsTable.tableColumns.lastObject row:idx] viewWithTag:1];
+        
+        [self changeStringState:check];
+    }
+}
+
+
 @end

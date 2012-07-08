@@ -22,4 +22,9 @@
 
 - (IBAction)changeStringState:(id)sender;
 
+- (IBAction)saveFile:(id)sender;
+- (IBAction)localizeAll:(id)sender;
+
+- (IBAction)delocalizeAll:(id)sender;
+
 @end
