@@ -19,6 +19,8 @@
 		6A41C94515A50D9A00B39B42 /* LocalizerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A41C94315A50D9900B39B42 /* LocalizerWindowController.m */; };
 		6A41C94615A50D9A00B39B42 /* LocalizerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A41C94415A50D9A00B39B42 /* LocalizerWindowController.xib */; };
 		6A41C94D15A519EF00B39B42 /* FilePathEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A41C94C15A519EF00B39B42 /* FilePathEntity.m */; };
+		D33217B515AAF36D006D21E3 /* FinishWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33217B315AAF36D006D21E3 /* FinishWindowController.m */; };
+		D33217B615AAF36D006D21E3 /* FinishWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D33217B415AAF36D006D21E3 /* FinishWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,9 @@
 		6A41C94415A50D9A00B39B42 /* LocalizerWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalizerWindowController.xib; sourceTree = "<group>"; };
 		6A41C94B15A519EF00B39B42 /* FilePathEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilePathEntity.h; sourceTree = "<group>"; };
 		6A41C94C15A519EF00B39B42 /* FilePathEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilePathEntity.m; sourceTree = "<group>"; };
+		D33217B215AAF36D006D21E3 /* FinishWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinishWindowController.h; sourceTree = "<group>"; };
+		D33217B315AAF36D006D21E3 /* FinishWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinishWindowController.m; sourceTree = "<group>"; };
+		D33217B415AAF36D006D21E3 /* FinishWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FinishWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +116,9 @@
 				6A41C94415A50D9A00B39B42 /* LocalizerWindowController.xib */,
 				6A41C94B15A519EF00B39B42 /* FilePathEntity.h */,
 				6A41C94C15A519EF00B39B42 /* FilePathEntity.m */,
+				D33217B215AAF36D006D21E3 /* FinishWindowController.h */,
+				D33217B315AAF36D006D21E3 /* FinishWindowController.m */,
+				D33217B415AAF36D006D21E3 /* FinishWindowController.xib */,
 			);
 			path = PLocalizer;
 			sourceTree = "<group>";
@@ -193,6 +201,7 @@
 				6A29F82615A368660008AEA7 /* Credits.rtf in Resources */,
 				6A29F82C15A368660008AEA7 /* MainMenu.xib in Resources */,
 				6A41C94615A50D9A00B39B42 /* LocalizerWindowController.xib in Resources */,
+				D33217B615AAF36D006D21E3 /* FinishWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +219,7 @@
 				6A41C93915A4463C00B39B42 /* TableCell.m in Sources */,
 				6A41C94515A50D9A00B39B42 /* LocalizerWindowController.m in Sources */,
 				6A41C94D15A519EF00B39B42 /* FilePathEntity.m in Sources */,
+				D33217B515AAF36D006D21E3 /* FinishWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

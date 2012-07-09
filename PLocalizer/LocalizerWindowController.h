@@ -27,4 +27,6 @@
 
 - (IBAction)delocalizeAll:(id)sender;
 
+- (IBAction)finish:(id)sender;
+
 @end

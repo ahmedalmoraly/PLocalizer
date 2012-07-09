@@ -84,33 +84,32 @@
     return dic;
 }
 
+
 -(void)enumerateStringsInFileAtPath:(NSURL *)filePath withBlock:(void (^)(NSString *, NSArray *))block
 {
     FileReader *fileReader = [[FileReader alloc] initReaderWithFileURL:filePath];
     
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    
     [fileReader enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
         
-        if ([self shouldLocalizeStatement:line])
-        {
-            NSArray *strings = [self getAllStringsInStatement:line];
-            //if (strings.count) {
-            if (block) {
-                block(line, strings);
+        BOOL hasString = NO;
+        if ([line rangeOfString:@"@\""].location !=  NSNotFound) {
+            hasString = YES;
+        }
+        
+        NSArray *strings;
+        
+        if (hasString) {
+            if ([self shouldLocalizeStatement:line])
+            {
+                strings = [self getAllStringsInStatement:line];
             }
-            [dic setObject:strings forKey:line];
-            //}
         }
-        else
-        {
-            if (block) {
-            block(line, nil);
-        }
-            
+        
+        if (block) {
+            block(line, strings);
         }
     }];
-
+    
     
 }
 
@@ -119,7 +118,9 @@
 {
     NSMutableArray *strings = [NSMutableArray array];
     
-    NSScanner *scanner = [NSScanner scannerWithString:[statement stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    NSString *trimmedStatement = [statement stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    NSScanner *scanner = [NSScanner scannerWithString:trimmedStatement];
     
     while (!scanner.isAtEnd) 
     {    
@@ -137,8 +138,9 @@
             while ([temp hasSuffix:@"\\"] && !scanner.isAtEnd) {
                 // this was escaped string, update scan location and search for the "
                 scanner.scanLocation += 1;
+                temp = nil;
                 [scanner scanUpToString:@"\"" intoString:&temp];
-                string = [string stringByAppendingString:temp];
+                string = [string stringByAppendingFormat:@"\"%@", (temp ? temp : @"")];
             }
             // here we have the final string with the " suffix
             
@@ -158,6 +160,10 @@
 -(BOOL)shouldLocalizeStatement:(NSString *)statement
 {
     NSString *trimmedStatement = [statement stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if ([statement rangeOfString:@"@"].location == NSNotFound) {
+        return NO;
+    }
     
     if (!statement || !statement.length || !trimmedStatement ||!trimmedStatement.length) {
         // if nil or empty or spaces

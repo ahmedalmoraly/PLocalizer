@@ -9,6 +9,7 @@
 #import "LocalizerWindowController.h"
 #import "FileReader.h"
 #import "Localizer.h"
+#import "FinishWindowController.h"
 
 static dispatch_queue_t _localize_strings_queue;
 static dispatch_queue_t localize_strings_queue()
@@ -25,6 +26,8 @@ static dispatch_queue_t localize_strings_queue()
 
 @property (assign) NSRange lastSelectedRange;
 
+@property (strong, nonatomic) FinishWindowController *finishController;
+
 @end
 
 @implementation LocalizerWindowController
@@ -36,6 +39,7 @@ static dispatch_queue_t localize_strings_queue()
 @synthesize fileEntity = _fileEntity;
 @synthesize stringsArray = _stringsArray;
 @synthesize lastSelectedRange = _lastSelectedRange;
+@synthesize finishController = _finishController;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -313,6 +317,15 @@ static dispatch_queue_t localize_strings_queue()
         
         [self changeStringState:check];
     }
+}
+
+- (IBAction)finish:(id)sender 
+{
+    self.finishController = [[FinishWindowController alloc] initWithWindowNibName:@"FinishWindowController"];
+    
+    self.finishController.pathURL = self.pathURL;
+    [self.finishController showWindow:nil];
+    [[self.finishController window] makeMainWindow];
 }
 
 

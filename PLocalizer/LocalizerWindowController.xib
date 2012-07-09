@@ -77,7 +77,7 @@
 											<string key="NSFrameSize">{263, 303}</string>
 											<reference key="NSSuperview" ref="114469918"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="841598477"/>
+											<reference key="NSNextKeyView" ref="382637784"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="1007134714">
@@ -242,7 +242,7 @@
 							<string key="NSFrame">{{20, 321}, {265, 321}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="382637784"/>
+							<reference key="NSNextKeyView" ref="114469918"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="660554469"/>
@@ -266,7 +266,7 @@
 											<string key="NSFrameSize">{609, 14}</string>
 											<reference key="NSSuperview" ref="1047530882"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="261780763"/>
+											<reference key="NSNextKeyView" ref="939053880"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<object class="NSTextContainer" key="NSTextContainer" id="642311191">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -386,7 +386,7 @@
 							<string key="NSFrame">{{293, 66}, {641, 576}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="939053880"/>
+							<reference key="NSNextKeyView" ref="1047530882"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133138</int>
 							<reference key="NSVScroller" ref="261780763"/>
@@ -407,7 +407,7 @@
 											<string key="NSFrameSize">{263, 229}</string>
 											<reference key="NSSuperview" ref="966304518"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="815143792"/>
+											<reference key="NSNextKeyView" ref="468472234"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="830419636">
@@ -543,7 +543,7 @@
 							<string key="NSFrame">{{20, 66}, {265, 247}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="468472234"/>
+							<reference key="NSNextKeyView" ref="966304518"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="403185931"/>
@@ -647,7 +647,6 @@
 									<string key="NSFrame">{{584, 9}, {37, 25}}</string>
 									<reference key="NSSuperview" ref="509995288"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:22</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="355751613">
@@ -778,6 +777,14 @@
 						<reference key="destination" ref="114348511"/>
 					</object>
 					<int key="connectionID">1146</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">finish:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="904326527"/>
+					</object>
+					<int key="connectionID">1154</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2458,7 +2465,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1153</int>
+			<int key="maxID">1154</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2468,6 +2475,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="changeStringState:">id</string>
 						<string key="delocalizeAll:">id</string>
+						<string key="finish:">id</string>
 						<string key="localizeAll:">id</string>
 						<string key="saveFile:">id</string>
 					</dictionary>
@@ -2478,6 +2486,10 @@
 						</object>
 						<object class="IBActionInfo" key="delocalizeAll:">
 							<string key="name">delocalizeAll:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="finish:">
+							<string key="name">finish:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="localizeAll:">
