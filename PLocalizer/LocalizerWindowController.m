@@ -200,10 +200,17 @@ static dispatch_queue_t localize_strings_queue()
     return result;
 }
 
+-(NSString *)tableView:(NSTableView *)tableView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation
+{
+    NSDictionary *stringDic = [self.stringsArray objectAtIndex:row];
+    
+    return [stringDic objectForKey:@"string"];
+}
+
 -(void)tableViewSelectionDidChange:(NSNotification *)notification
 {
     if (self.lastSelectedRange.location != NSNotFound) {
-        [self.textView.textStorage removeAttribute:NSBackgroundColorAttributeName range:self.lastSelectedRange];
+        [self.textView.textStorage removeAttribute:NSBackgroundColorAttributeName range:NSMakeRange(0, self.textView.string.length)];
     }
     
     NSDictionary *stringDic = [self.stringsArray objectAtIndex:self.stringsTable.selectedRow];
@@ -285,17 +292,16 @@ static dispatch_queue_t localize_strings_queue()
     FilePathEntity *file = [self.outline itemAtRow:self.outline.selectedRow];
     
     NSError *error;
-    NSLog(@"%@", self.textView.textStorage.string);
     [self.textView.textStorage.string writeToURL:file.fileURL atomically:YES encoding:NSUTF8StringEncoding error:&error];
     
-    NSLog(@"%@", error);
+    if(error) NSLog(@"error: %@", error);
 }
 
 - (IBAction)localizeAll:(id)sender 
 {
     for (int idx = 0; idx < self.stringsTable.numberOfRows; idx++) {
         NSButton *check = [[self tableView:self.stringsTable viewForTableColumn:self.stringsTable.tableColumns.lastObject row:idx] viewWithTag:1];
-        
+        check.state = 1;
         [self changeStringState:check];
     }
 }
