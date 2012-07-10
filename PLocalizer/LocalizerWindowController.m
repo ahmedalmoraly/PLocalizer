@@ -28,6 +28,10 @@ static dispatch_queue_t localize_strings_queue()
 
 @property (strong, nonatomic) FinishWindowController *finishController;
 
+-(void)localizeStringAtIndex:(NSInteger)idx;
+-(void)delocalizeStringAtIndex:(NSInteger)idx;
+-(void)updateAllStringsRangesWithDifference:(NSInteger)diff startingAtIndex:(NSInteger)idx;
+
 @end
 
 @implementation LocalizerWindowController
@@ -241,28 +245,33 @@ static dispatch_queue_t localize_strings_queue()
 {
     NSInteger row = [self.stringsTable rowForView:sender];
     
+    if ([[self.stringsArray objectAtIndex:row] objectForKey:@"localizedString"]) 
+    {
+        [self delocalizeStringAtIndex:row];
+    }
+    else 
+    {
+        [self localizeStringAtIndex:row];
+    }
+    
+    [self.textView setNeedsDisplayInRect:self.textView.visibleRect];
+}
+
+-(void)localizeStringAtIndex:(NSInteger)row
+{
     NSMutableDictionary *stringDic = [self.stringsArray objectAtIndex:row];
     
-    NSRange lineRange =  NSRangeFromString([stringDic objectForKey:@"lineRange"]);
-    
-    NSString *string = [stringDic objectForKey:@"string"];
-    
-    NSInteger diffInLength = 0;
     NSString *localizedString = [stringDic objectForKey:@"localizedString"];
-    if (localizedString) 
+    
+    if (!localizedString) 
     {
-            // string needs de-localization
-        NSRange localizedRange = [self.textView.string rangeOfString:localizedString options:NSCaseInsensitiveSearch range:lineRange];
+        NSRange lineRange =  NSRangeFromString([stringDic objectForKey:@"lineRange"]);
         
-        [self.textView replaceCharactersInRange:localizedRange withString:string];
+        NSString *string = [stringDic objectForKey:@"string"];
         
-        [stringDic removeObjectForKey:@"localizedString"];
+        NSInteger diffInLength = 0;
         
-        diffInLength = string.length - localizedString.length;
-    } 
-    else
-    {
-            // string needs localization
+        // string needs localization
         localizedString = [NSString stringWithFormat:@"NSLocalizedString(%@, nil)", string];
         
         NSRange range = [self.textView.string rangeOfString:string options:NSCaseInsensitiveSearch range:lineRange];
@@ -274,21 +283,81 @@ static dispatch_queue_t localize_strings_queue()
         diffInLength = localizedString.length - string.length;
         
         
+        lineRange.length += diffInLength;
+        [stringDic setObject:NSStringFromRange(lineRange) forKey:@"lineRange"];
+        
+        [self updateAllStringsRangesWithDifference:diffInLength startingAtIndex:row];
     }
+}
+
+-(void)delocalizeStringAtIndex:(NSInteger)idx
+{
+    NSMutableDictionary *stringDic = [self.stringsArray objectAtIndex:idx];
     
-    lineRange.length += diffInLength;
-    [stringDic setObject:NSStringFromRange(lineRange) forKey:@"lineRange"];
+    NSString *localizedString = [stringDic objectForKey:@"localizedString"];
     
-        // update range of all strings
-    for (int idx = row+1; idx < self.stringsArray.count; idx++)
+    if (localizedString) 
     {
-        NSMutableDictionary *stringDic = [self.stringsArray objectAtIndex:idx];
         NSRange lineRange =  NSRangeFromString([stringDic objectForKey:@"lineRange"]);
-        lineRange.location += diffInLength;
+        
+        NSString *string = [stringDic objectForKey:@"string"];
+        
+        NSInteger diffInLength = 0;
+        // string needs de-localization
+        NSRange localizedRange = [self.textView.string rangeOfString:localizedString options:NSCaseInsensitiveSearch range:lineRange];
+        
+        [self.textView replaceCharactersInRange:localizedRange withString:string];
+        
+        [stringDic removeObjectForKey:@"localizedString"];
+        
+        diffInLength = string.length - localizedString.length;
+        
+        lineRange.length += diffInLength;
+        [stringDic setObject:NSStringFromRange(lineRange) forKey:@"lineRange"];
+        
+        [self updateAllStringsRangesWithDifference:diffInLength startingAtIndex:idx];
+    }
+}
+
+-(void)updateAllStringsRangesWithDifference:(NSInteger)diff startingAtIndex:(NSInteger)idx
+{
+    // update range of all strings
+    for (NSInteger row = idx+1; row < self.stringsArray.count; row++)
+    {
+        NSMutableDictionary *stringDic = [self.stringsArray objectAtIndex:row];
+        NSRange lineRange =  NSRangeFromString([stringDic objectForKey:@"lineRange"]);
+        lineRange.location += diff;
         [stringDic setObject:NSStringFromRange(lineRange) forKey:@"lineRange"];
     }
+}
+
+- (IBAction)localizeAll:(id)sender 
+{
+    for (int idx = 0; idx < self.stringsArray.count; idx++) {
+        NSButton *check = [[self.stringsTable viewAtColumn:0 row:idx makeIfNecessary:NO] viewWithTag:1];
+        check.state = 1;
+        [self localizeStringAtIndex:idx];
+    }
+    [self.textView setNeedsDisplay:YES];
+}
+
+- (IBAction)delocalizeAll:(id)sender 
+{
+    for (int idx = 0; idx < self.stringsArray.count; idx++) {
+        NSButton *check = [[self.stringsTable viewAtColumn:0 row:idx makeIfNecessary:NO] viewWithTag:1];
+        check.state = 0;
+        [self delocalizeStringAtIndex:idx];
+    }
+    [self.textView setNeedsDisplay:YES];
+}
+
+- (IBAction)finish:(id)sender 
+{
+    self.finishController = [[FinishWindowController alloc] initWithWindowNibName:@"FinishWindowController"];
     
-    [self.textView setNeedsDisplayInRect:self.textView.visibleRect];
+    self.finishController.pathURL = self.pathURL;
+    [self.finishController showWindow:nil];
+    [[self.finishController window] makeMainWindow];
 }
 
 - (IBAction)saveFile:(id)sender 
@@ -299,33 +368,6 @@ static dispatch_queue_t localize_strings_queue()
     [self.textView.textStorage.string writeToURL:file.fileURL atomically:YES encoding:NSUTF8StringEncoding error:&error];
     
     if(error) NSLog(@"error: %@", error);
-}
-
-- (IBAction)localizeAll:(id)sender 
-{
-    for (int idx = 0; idx < self.stringsTable.numberOfRows; idx++) {
-        NSButton *check = [[self tableView:self.stringsTable viewForTableColumn:self.stringsTable.tableColumns.lastObject row:idx] viewWithTag:1];
-        check.state = 1;
-        [self changeStringState:check];
-    }
-}
-
-- (IBAction)delocalizeAll:(id)sender 
-{
-    for (int idx = 0; idx < self.stringsTable.numberOfRows; idx++) {
-        NSButton *check = [[self tableView:self.stringsTable viewForTableColumn:self.stringsTable.tableColumns.lastObject row:idx] viewWithTag:1];
-        
-        [self changeStringState:check];
-    }
-}
-
-- (IBAction)finish:(id)sender 
-{
-    self.finishController = [[FinishWindowController alloc] initWithWindowNibName:@"FinishWindowController"];
-    
-    self.finishController.pathURL = self.pathURL;
-    [self.finishController showWindow:nil];
-    [[self.finishController window] makeMainWindow];
 }
 
 

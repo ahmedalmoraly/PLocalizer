@@ -35,16 +35,14 @@
 
 -(void)generateStringsFile:(NSButton *)sender
 {
-    NSString *outPutPath = self.pathTextField.stringValue;
-    NSString *cd_command = [NSString stringWithFormat:@"cd %@", self.pathURL.path];
+    NSString *outPutPath = [self.pathTextField.stringValue stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
+    NSString *cd_command = [NSString stringWithFormat:@"cd %@", [self.pathURL.path stringByReplacingOccurrencesOfString:@" " withString:@"\\ "]];
     NSString *command = [NSString stringWithFormat:@"%@; find . -name \\*.m | xargs genstrings -o %@", cd_command, outPutPath];
         //find . -name \*.m | xargs genstrings -o en.lproj
     NSLog(@"command: %@", cd_command);
     NSLog(@"command: %@", command);
-    int z = system(command.UTF8String);
-    int y = system("genstrings -a *.m");
-    
-    
+    system(command.UTF8String);
+    system("genstrings -a *.m");
 }
 
 - (IBAction)browseForOutputPath:(id)sender
