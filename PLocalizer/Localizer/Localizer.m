@@ -181,7 +181,7 @@
     }
     
     // check if it's already localized
-    if ([statement rangeOfString:@"NSLocalizedString("].location != NSNotFound) {
+    if ([statement rangeOfString:@"NSLocalizedString"].location != NSNotFound) {
         //NSLog(@"already localized !!");
         return NO;
     }
